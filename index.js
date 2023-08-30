@@ -8,6 +8,36 @@ const expiryDurationMs = 60 * 1000;
 let SERVER_URL = process.env.SERVER_URL || 'http://localhost:8989';
 let SERVER_ERROR_ENABLED = false;
 
+const vpnsEnabledWSMessage = (serverUrl = SERVER_URL) => ({
+    "message-correlation-id": "0f787411-761b-4f4d-8e14-c17fffdf506b",
+    type: "altCustExpAuthIgnoreTokenExpiration",
+    message:
+    {
+        status: "enabled",
+        gracePeriodStart: "1693420327",
+        gracePeriodEnd: "1693423927"
+    }
+});
+const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
+    "message-correlation-id": "0f787411-761b-4f4d-8e14-c17fffdf506b",
+    type: "altCustExpAuthIgnoreTokenExpiration",
+    message:
+    {
+        status: "pendingDisabled",
+        gracePeriodStart: "1693420327",
+        gracePeriodEnd: "1693423927"
+    }
+});
+const vpnsDisabledWSMessage = (serverUrl = SERVER_URL) => ({
+    "message-correlation-id": "0f787411-761b-4f4d-8e14-c17fffdf506b",
+    type: "altCustExpAuthIgnoreTokenExpiration",
+    message:
+    {
+        status: "disabled",
+        gracePeriodStart: "1693420327",
+        gracePeriodEnd: "1693423927"
+    }
+});
 const easWSMessage = (serverUrl = SERVER_URL) => ({
     GenericMessage: {
         SecureContent: {
@@ -84,6 +114,21 @@ const easMessageNoAudio = () => ({
 let wss;
 let allWSConnection = true;
 
+function sendVPNSEnabledWSMessage() {
+    wss.clients.forEach(socket => {
+        socket.send(JSON.stringify(vpnsEnabledWSMessage()));
+    });
+}
+function sendVPNSDisabledPendingWSMessage() {
+    wss.clients.forEach(socket => {
+        socket.send(JSON.stringify(vpnsDisabledPendingWSMessage()));
+    });
+}
+function sendVPNSDisabledWSMessage() {
+    wss.clients.forEach(socket => {
+        socket.send(JSON.stringify(vpnsDisabledWSMessage()));
+    });
+}
 function sendEASMessage() {
     wss.clients.forEach(socket => {
         socket.send(JSON.stringify(easWSMessage()));
@@ -216,6 +261,24 @@ const server = createServer((req, resp) => {
         fileStream.pipe(resp);
     } else if(reqUrl.endsWith('toggleerror')) {
         SERVER_ERROR_ENABLED = !SERVER_ERROR_ENABLED;
+        const contentType = 'text/html';
+        resp.writeHead(200, { 'Content-Type': contentType });
+        resp.end('Message sent');
+    } else if(reqUrl.endsWith('vpnsEnabled')) {
+        console.log('requested path sendeas');
+        sendVPNSEnabledWSMessage();
+        const contentType = 'text/html';
+        resp.writeHead(200, { 'Content-Type': contentType });
+        resp.end('Message sent');
+    } else if(reqUrl.endsWith('vpnsDisabledPending')) {
+        console.log('requested path sendeas');
+        sendVPNSDisabledPendingWSMessage();
+        const contentType = 'text/html';
+        resp.writeHead(200, { 'Content-Type': contentType });
+        resp.end('Message sent');
+    } else if(reqUrl.endsWith('vpnsDisabled')) {
+        console.log('requested path sendeas');
+        sendVPNSDisabledWSMessage();
         const contentType = 'text/html';
         resp.writeHead(200, { 'Content-Type': contentType });
         resp.end('Message sent');

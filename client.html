@@ -37,6 +37,15 @@
         function onload() {
             document.getElementById('server-url').value = window.location.origin;
         }
+        function sendVPNSEnabled() {
+            fetch('/vpnsEnabled').then(() => alert('Message sent'));
+        }
+        function sendVPNSDisabledPending() {
+            fetch('/vpnsDisabledPending').then(() => alert('Message sent'));
+        }
+        function sendVPNSDisabled() {
+            fetch('/vpnsDisabled').then(() => alert('Message sent'));
+        }
     </script>
     <style>
         .container {
@@ -64,6 +73,9 @@
         <button id="close-wss" onclick="closeWSSWithError1007()">Close WebSocket server (Error 1007)</button>
         <button id="open-wss" onclick="openWSS()">Open WebSocket server</button>
         <button id="toggle-error" onclick="toggleError()">Toggle HTTP Error</button>
+        <button id="vpns-enabled" onclick="sendVPNSEnabled()">VPNS enabled</button>
+        <button id="vpns-disabled-pending" onclick="sendVPNSDisabledPending()">VPNS disabled pending</button>
+        <button id="vpns-disabled" onclick="sendVPNSDisabled()">VPNS disabled</button>
     </div>
 </body>
 </html>
