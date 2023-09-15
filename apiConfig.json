@@ -1,0 +1,14 @@
+{
+  "services": {
+    "vpns": {
+      "endpoints": {
+        "socketSubscribe": {
+          "scheme": "wss",
+          "host": "websocket-server-q8wh.onrender.com",
+          "path": ""
+        }
+      }
+    }
+  },
+  "version": 1
+}

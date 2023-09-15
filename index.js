@@ -14,8 +14,8 @@ const vpnsEnabledWSMessage = (serverUrl = SERVER_URL) => ({
     message:
     {
         status: "enabled",
-        gracePeriodStart: "1693420327",
-        gracePeriodEnd: "1693423927"
+        gracePeriodStart: (Date.now() / 1000).toString(),
+        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
     }
 });
 const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
@@ -24,8 +24,8 @@ const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
     message:
     {
         status: "pendingDisabled",
-        gracePeriodStart: "1693420327",
-        gracePeriodEnd: "1693423927"
+        gracePeriodStart: (Date.now() / 1000).toString(),
+        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
     }
 });
 const vpnsDisabledWSMessage = (serverUrl = SERVER_URL) => ({
@@ -34,8 +34,8 @@ const vpnsDisabledWSMessage = (serverUrl = SERVER_URL) => ({
     message:
     {
         status: "disabled",
-        gracePeriodStart: "1693420327",
-        gracePeriodEnd: "1693423927"
+        gracePeriodStart: (Date.now() / 1000).toString(),
+        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
     }
 });
 const easWSMessage = (serverUrl = SERVER_URL) => ({
@@ -265,19 +265,19 @@ const server = createServer((req, resp) => {
         resp.writeHead(200, { 'Content-Type': contentType });
         resp.end('Message sent');
     } else if(reqUrl.endsWith('vpnsEnabled')) {
-        console.log('requested path sendeas');
+        console.log('requested path vpnsEnabled');
         sendVPNSEnabledWSMessage();
         const contentType = 'text/html';
         resp.writeHead(200, { 'Content-Type': contentType });
         resp.end('Message sent');
     } else if(reqUrl.endsWith('vpnsDisabledPending')) {
-        console.log('requested path sendeas');
+        console.log('requested path vpnsDisabledPending');
         sendVPNSDisabledPendingWSMessage();
         const contentType = 'text/html';
         resp.writeHead(200, { 'Content-Type': contentType });
         resp.end('Message sent');
     } else if(reqUrl.endsWith('vpnsDisabled')) {
-        console.log('requested path sendeas');
+        console.log('requested path vpnsDisabled');
         sendVPNSDisabledWSMessage();
         const contentType = 'text/html';
         resp.writeHead(200, { 'Content-Type': contentType });
