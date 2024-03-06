@@ -14,8 +14,8 @@ const vpnsEnabledWSMessage = (serverUrl = SERVER_URL) => ({
     message:
     {
         status: "enabled",
-        gracePeriodStart: (Date.now() / 1000).toString(),
-        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
+        gracePeriodStart: ((Date.now() / 1000) + 13 * 60 * 60).toString(),
+        gracePeriodEnd: ((Date.now() / 1000) + 14 * 60 * 60).toString()
     }
 });
 const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
