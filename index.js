@@ -14,8 +14,8 @@ const vpnsEnabledWSMessage = (serverUrl = SERVER_URL) => ({
     message:
     {
         status: "enabled",
-        gracePeriodStart: ((Date.now() / 1000) + 20 * 60).toString(),
-        gracePeriodEnd: ((Date.now() / 1000) + 25 * 60).toString()
+        gracePeriodStart: ((Date.now() / 1000) + 13 * 60 * 60).toString(),
+        gracePeriodEnd: ((Date.now() / 1000) + 14 * 60 * 60).toString()
     }
 });
 const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
@@ -25,7 +25,7 @@ const vpnsDisabledPendingWSMessage = (serverUrl = SERVER_URL) => ({
     {
         status: "pendingDisabled",
         gracePeriodStart: (Date.now() / 1000).toString(),
-        gracePeriodEnd: ((Date.now() / 1000) + 5 * 60).toString()
+        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
     }
 });
 const vpnsDisabledWSMessage = (serverUrl = SERVER_URL) => ({
@@ -35,7 +35,7 @@ const vpnsDisabledWSMessage = (serverUrl = SERVER_URL) => ({
     {
         status: "disabled",
         gracePeriodStart: (Date.now() / 1000).toString(),
-        gracePeriodEnd: ((Date.now() / 1000) + 5 * 60).toString()
+        gracePeriodEnd: ((Date.now() / 1000) + 30 * 60).toString()
     }
 });
 const easWSMessage = (serverUrl = SERVER_URL) => ({
